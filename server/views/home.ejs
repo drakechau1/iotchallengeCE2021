@@ -1,61 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IOT Challenge</title>
-    <style>
-        h1{
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            color: blue;
-            text-align: center;
-        }
-        table{
-            font-size: 16px;
-            text-align: left;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            margin-left: auto;
-            margin-right: auto;    
-        }
-        th, tr {
-            padding: 5px;
-            padding-right: 50px;
-        }
-        td{
-            width: 100px;
-        }
-        input.toggleButton{
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            font-size: 14px;
-            height: 30px;
-            width: 100px;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
+
 <body>
-    <h1>IOT CHALLENGE</h1>
+    <div id="header">
+        <h1>IOT CHALLENGE</h1>
+    </div>
     <!-- Hiển thị các giá trị lớn nhất, nhỏ nhất, giá trị trung bình -->
-    <table class="Handle">
-        <tbody>
-            <tr>
-                <th>Temperature (&degC)</th><td>Avg</td><td>Min</td><td>Max</td>
-            </tr>
-            <tr>
-                <th>Humidity (%)</th><td>Avg</td><td>Min</td><td>Max</td>
-            </tr>
-            <tr>
-                <th>Gas (ppm)</th><td>Avg</td><td>Min</td><td>Max</td>
-            </tr>
-            <tr>
-                <th>Light status</th>
-                <td colspan="3" align="left"><input class="toggleButton" type="button" value="ON"></td>
-            </tr>
-        </tbody>
-    </table>
-    <!-- Trích xuất dữ liệu từ database -->
-    <table style="padding: 20px; text-align: left;">
+    <div class="div-table">
+        <table id="highlight-para">
+            <tbody>
+                <tr>
+                    <th>Temperature (&degC)</th>
+                    <td>Avg</td>
+                    <td>Min</td>
+                    <td>Max</td>
+                </tr>
+                <tr>
+                    <th>Humidity (%)</th>
+                    <td>Avg</td>
+                    <td>Min</td>
+                    <td>Max</td>
+                </tr>
+                <tr>
+                    <th>Gas (ppm)</th>
+                    <td>Avg</td>
+                    <td>Min</td>
+                    <td>Max</td>
+                </tr>
+                <tr>
+                    <th>Light status</th>
+                    <td colspan="3">
+                        <input id="toggleButton" type="button" value="ON">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Hiển thị các thông số của cảm biết -->
+    <table id="infor-para">
         <tbody>
             <tr>
                 <th>Timestamp</th>
@@ -64,14 +54,28 @@
                 <th>Gas</th>
                 <th>Light</th>
             </tr>
-            <tr>
-                <td>12h00</td>
-                <td>27</td>
-                <td>50</td>
-                <td>300</td>
-                <td>ON</td>
-            </tr>
+            <!-- Trích xuất dữ liệu từ database -->
+            <%result.forEach(element=> {%>
+                <tr>
+                    <td>
+                        <%- element.date.toLocaleString('en-US', { hour12: false })%>
+                    </td>
+                    <td>
+                        <%- element.temperature%>
+                    </td>
+                    <td>
+                        <%- element.humidity%>
+                    </td>
+                    <td>
+                        <%- element.gas%>
+                    </td>
+                    <td>
+                        <%- element.ledStatus%>
+                    </td>
+                </tr>
+                <%})%>
         </tbody>
     </table>
 </body>
+
 </html>

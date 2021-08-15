@@ -1,23 +1,45 @@
-var express = require('express');
-var app = express();
+const bodyParser = require('body-parser');
+const express = require('express');
+const app = express();
+const connectDB = require('./models/connectDB');
+const postSchema = require('./models/postSchema');
 
-// Establish connection to MongoDB
-const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://iotchallenge:<iotchallenge>@cluster0.umzli.mongodb.net/IOT1?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
-
+app.use(express.static("public"));
+app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.listen(8080, ()=>{
-    console.log('listening port 8080');
+// Connect to MongoDB
+connectDB();
+
+// Middlewares
+
+//  Routes
+app.get('/', async(req, res) => {
+    try {
+        const posts = await postSchema.find().sort({ 'date': 'desc' });
+        res.render('home', { result: posts });
+    } catch (err) {
+        res.json({ message: err });
+    }
+
 })
 
-app.get('/', (req, res) =>{
-    res.render('home');
+app.post('/post', async(req, res) => {
+    console.log(req.body);
+    var post = new postSchema({
+        temperature: req.body.temperature,
+        humidity: req.body.humidity,
+        gas: req.body.gas,
+        ledStatus: req.body.ledStatus
+    });
+    try {
+        const savePost = await post.save();
+        res.json(savePost);
+    } catch (err) {
+        res.json({ message: err });
+    }
 })
+
+// Listening to the server
+app.listen(process.env.PORT || 8080, () => { console.log('Connected to the server') });

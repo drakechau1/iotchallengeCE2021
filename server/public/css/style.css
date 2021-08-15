@@ -1,0 +1,50 @@
+@charset "UTF-8";
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#header {
+    text-align: center;
+    color: blue;
+}
+
+table {
+    /* border: 1px solid black; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#highlight-para {
+    padding: 30px;
+    width: 60%;
+}
+
+#highlight-para th {
+    text-align: left;
+    width: 30%;
+}
+
+#highlight-para td {
+    text-align: left;
+    width: 20%;
+}
+
+#infor-para {
+    padding: 30px;
+    width: 80%;
+    text-align: center;
+}
+
+#infor-para th {
+    padding-bottom: 20px;
+    width: 15%;
+}
+
+#infor-para td {
+    padding-bottom: 20px;
+}
+
+#toggleButton {
+    width: 100px;
+    height: 30px;
+}
