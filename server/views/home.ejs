@@ -82,8 +82,8 @@
         </table>
     </div>
     <!-- Hiển thị các thông số của cảm biết -->
-    <table id="infor-para">
-        <tbody>
+    <table class="table-scroll small-first-col">
+        <thead>            
             <tr>
                 <th>Timestamp</th>
                 <th>Temperature</th>
@@ -91,7 +91,9 @@
                 <th>Gas</th>
                 <th>Light</th>
             </tr>
+        </thead>
             <!-- Trích xuất dữ liệu từ database -->
+        <tbody class="body-half-screen">
             <%result.forEach(element=> {%>
                 <tr>
                     <td>
