@@ -7,6 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IOT Challenge</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function checkLedStatus() {
+            var checkbox = document.getElementById('ledstatus');
+            var status = null;
+            if (checkbox.checked != true) {
+                status = 'OFF';
+            } else {
+                status = 'ON';
+            }
+            $.get('http://localhost:8080/ledstatus', {
+                ledstatus: status,
+            })
+        }
+    </script>
 </head>
 
 <body>
@@ -19,26 +34,48 @@
             <tbody>
                 <tr>
                     <th>Temperature (&degC)</th>
-                    <td>Avg</td>
-                    <td>Min</td>
-                    <td>Max</td>
+                    <td>Avg:
+                        <%- avg['avgTemp']%>
+                    </td>
+                    <td>Min:
+                        <%- min['minTemp']%>
+                    </td>
+                    <td>Max:
+                        <%- max['maxTemp']%>
+                    </td>
                 </tr>
                 <tr>
                     <th>Humidity (%)</th>
-                    <td>Avg</td>
-                    <td>Min</td>
-                    <td>Max</td>
+                    <td>Avg:
+                        <%- avg['avgHumi']%>
+                    </td>
+                    <td>Min:
+                        <%- min['minHumi']%>
+                    </td>
+                    <td>Max:
+                        <%- max['maxHumi']%>
+                    </td>
                 </tr>
                 <tr>
                     <th>Gas (ppm)</th>
-                    <td>Avg</td>
-                    <td>Min</td>
-                    <td>Max</td>
+                    <td>Avg:
+                        <%- avg['avgGas']%>
+                    </td>
+                    <td>Min:
+                        <%- min['minGas']%>
+                    </td>
+                    <td>Max:
+                        <%- max['maxGas']%>
+                    </td>
                 </tr>
                 <tr>
                     <th>Light status</th>
                     <td colspan="3">
-                        <input id="toggleButton" type="button" value="ON">
+                        <!-- <input id="toggleButton" type="button" value="ON"> -->
+                        <label class="switch">
+                            <input type="checkbox" onclick="checkLedStatus()"  id="ledstatus">
+                            <span class="slider round"></span>
+                          </label>
                     </td>
                 </tr>
             </tbody>
